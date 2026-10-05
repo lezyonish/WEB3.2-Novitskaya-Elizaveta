@@ -66,26 +66,94 @@ function pokazatKorzinu() {
     let kolvo = 0;
 
     korzina.forEach(function (tovar) {
-        const stroka = document.createElement("p");
+        const blok = document.createElement("div");
+        blok.classList.add("cart-item");
 
-        const summaTovara = tovar.price * tovar.kolvo;
+        const nazvanie = document.createElement("p");
+        nazvanie.textContent = tovar.name;
 
-        stroka.textContent =
-            tovar.name +
-            " × " +
-            tovar.kolvo +
-            " — " +
-            summaTovara.toLocaleString("ru-RU") +
-            " ₽";
+        const cena = document.createElement("p");
+        cena.textContent =
+            (tovar.price * tovar.kolvo).toLocaleString("ru-RU") + " ₽";
 
-        spisokKorziny.append(stroka);
+        const upravlenie = document.createElement("div");
+        upravlenie.classList.add("cart-controls");
 
-        summa = summa + summaTovara;
+        const minus = document.createElement("button");
+        minus.type = "button";
+        minus.textContent = "−";
+
+        minus.addEventListener("click", function () {
+            izmenitKolvo(tovar.id, -1);
+        });
+
+        const chislo = document.createElement("span");
+        chislo.textContent = tovar.kolvo;
+
+        const plus = document.createElement("button");
+        plus.type = "button";
+        plus.textContent = "+";
+
+        plus.addEventListener("click", function () {
+            izmenitKolvo(tovar.id, 1);
+        });
+
+        const udalit = document.createElement("button");
+        udalit.type = "button";
+        udalit.textContent = "Удалить";
+        udalit.classList.add("delete-button");
+
+        udalit.addEventListener("click", function () {
+            udalitTovar(tovar.id);
+        });
+
+        upravlenie.append(minus);
+        upravlenie.append(chislo);
+        upravlenie.append(plus);
+
+        blok.append(nazvanie);
+        blok.append(cena);
+        blok.append(upravlenie);
+        blok.append(udalit);
+
+        spisokKorziny.append(blok);
+
+        summa = summa + tovar.price * tovar.kolvo;
         kolvo = kolvo + tovar.kolvo;
     });
 
     schetchik.textContent = kolvo;
     itogo.textContent = summa.toLocaleString("ru-RU");
+}
+function izmenitKolvo(id, shag) {
+    const tovar = korzina.find(function (element) {
+        return element.id === id;
+    });
+
+    if (!tovar) {
+        return;
+    }
+
+    tovar.kolvo = tovar.kolvo + shag;
+
+    if (tovar.kolvo <= 0) {
+        udalitTovar(id);
+        return;
+    }
+
+    pokazatKorzinu();
+}
+
+function udalitTovar(id) {
+    const index = korzina.findIndex(function (element) {
+        return element.id === id;
+    });
+
+    if (index !== -1) {
+        korzina.splice(index, 1);
+    }
+
+    pokazatKorzinu();
 }
 
 pokazatBukety();
