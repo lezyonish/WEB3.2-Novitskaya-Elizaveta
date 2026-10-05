@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Flourishing Soul</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <a class="logo" href="#">Flourishing Soul</a>
+
+        <nav class="nav">
+            <a href="#catalog">Каталог</a>
+
+            <button class="cart-button" id="cart-button" type="button">
+                Корзина
+                <span id="cart-count">0</span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="catalog" id="catalog">
+            <h1>Каталог букетов</h1>
+
+            <div class="bouquet-list" id="bouquet-list">
+            </div>
+        </section>
+
+    </main>
+
+    <aside class="cart" id="cart">
+        <div class="cart-top">
+            <h2>Корзина</h2>
+
+            <button class="close-button" id="close-cart" type="button">
+                Закрыть
+            </button>
+        </div>
+
+        <div class="cart-list" id="cart-list">
+        </div>
+
+        <div class="cart-bottom">
+            <p>
+                Итого:
+                <span id="cart-total">0</span>
+                ₽
+            </p>
+
+            <button id="order-button" type="button">
+                Оформить заказ
+            </button>
+        </div>
+    </aside>
+
+    <footer class="footer">
+        <p>Flourishing Soul</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
