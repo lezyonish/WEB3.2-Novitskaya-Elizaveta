@@ -2,7 +2,8 @@ const spisok = document.getElementById("bouquet-list");
 const spisokKorziny = document.getElementById("cart-list");
 const schetchik = document.getElementById("cart-count");
 const itogo = document.getElementById("cart-total");
-const korzina = [];
+const sohranennayaKorzina = localStorage.getItem("korzina");
+const korzina = sohranennayaKorzina ? JSON.parse(sohranennayaKorzina) : [];
 
 function pokazatBukety() {
     bukety.forEach(function (buket) {
@@ -36,6 +37,11 @@ function pokazatBukety() {
         spisok.append(kartochka);
     });
 }
+
+function sohranitKorzinu() {
+    localStorage.setItem("korzina", JSON.stringify(korzina));
+}
+
 function dobavitVKorzinu(id) {
     const tovar = korzina.find(function (element) {
         return element.id === id;
@@ -56,6 +62,7 @@ function dobavitVKorzinu(id) {
         });
     }
 
+    sohranitKorzinu();
     pokazatKorzinu();
 }
 
@@ -141,6 +148,7 @@ function izmenitKolvo(id, shag) {
         return;
     }
 
+    sohranitKorzinu();
     pokazatKorzinu();
 }
 
@@ -153,7 +161,9 @@ function udalitTovar(id) {
         korzina.splice(index, 1);
     }
 
+    sohranitKorzinu();
     pokazatKorzinu();
 }
 
 pokazatBukety();
+pokazatKorzinu();
