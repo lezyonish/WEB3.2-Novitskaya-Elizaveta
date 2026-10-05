@@ -60,7 +60,37 @@
             </button>
         </div>
     </aside>
+    <div class="order-modal hidden" id="order-modal">
+        <div class="order-window">
+            <button class="order-close" id="order-close" type="button">
+                ×
+            </button>
 
+            <h2>Оформление заказа</h2>
+
+            <form id="order-form">
+                <label for="first-name">Имя</label>
+                <input id="first-name" type="text" required>
+
+                <label for="last-name">Фамилия</label>
+                <input id="last-name" type="text" required>
+
+                <label for="address">Адрес доставки</label>
+                <input id="address" type="text" required>
+
+                <label for="phone">Номер телефона</label>
+                <input id="phone" type="tel" required>
+
+                <button type="submit">
+                    Создать заказ
+                </button>
+            </form>
+
+            <p class="order-message hidden" id="order-message">
+                Заказ создан!
+            </p>
+        </div>
+    </div>
     <footer class="footer">
         <p>Flourishing Soul</p>
     </footer>

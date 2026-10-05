@@ -4,6 +4,11 @@ const schetchik = document.getElementById("cart-count");
 const itogo = document.getElementById("cart-total");
 const sohranennayaKorzina = localStorage.getItem("korzina");
 const korzina = sohranennayaKorzina ? JSON.parse(sohranennayaKorzina) : [];
+const knopkaZakaza = document.getElementById("order-button");
+const modalZakaza = document.getElementById("order-modal");
+const zakrytZakaz = document.getElementById("order-close");
+const formaZakaza = document.getElementById("order-form");
+const soobshenieZakaza = document.getElementById("order-message");
 
 function pokazatBukety() {
     bukety.forEach(function (buket) {
@@ -164,6 +169,21 @@ function udalitTovar(id) {
     sohranitKorzinu();
     pokazatKorzinu();
 }
+knopkaZakaza.addEventListener("click", function () {
+    modalZakaza.classList.remove("hidden");
+    soobshenieZakaza.classList.add("hidden");
+});
+
+zakrytZakaz.addEventListener("click", function () {
+    modalZakaza.classList.add("hidden");
+});
+
+formaZakaza.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    formaZakaza.classList.add("hidden");
+    soobshenieZakaza.classList.remove("hidden");
+});
 
 pokazatBukety();
 pokazatKorzinu();

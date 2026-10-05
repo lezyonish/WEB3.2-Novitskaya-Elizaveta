@@ -104,3 +104,57 @@ img {
 .delete-button {
     padding: 6px 10px;
 }
+
+.hidden {
+    display: none;
+}
+
+.order-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-modal.hidden {
+    display: none;
+}
+
+.order-window {
+    position: relative;
+    width: 90%;
+    max-width: 450px;
+    padding: 30px;
+    background: white;
+}
+
+.order-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#order-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#order-form input {
+    padding: 10px;
+}
+
+#order-form button {
+    margin-top: 10px;
+    padding: 12px;
+}
+
+.order-message {
+    margin-top: 20px;
+}
