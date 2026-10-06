@@ -8,7 +8,14 @@ html {
 
 body {
     margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
     font-family: Arial, sans-serif;
+    color: #f5eeee;
+    background:
+        radial-gradient(circle at top left, #6f2936 0, transparent 35%),
+        radial-gradient(circle at bottom right, #49151f 0, transparent 30%),
+        #210e13;
 }
 
 button,
@@ -30,23 +37,96 @@ img {
     max-width: 100%;
 }
 
-.catalog {
-    max-width: 1200px;
+.header {
+    position: relative;
+    z-index: 2;
+    max-width: 1250px;
     margin: 0 auto;
-    padding: 40px 24px;
+    padding: 28px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: Georgia, serif;
+    font-size: 30px;
+    font-style: italic;
+    letter-spacing: 1px;
+    color: #f8eeee;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav > a,
+.cart-button {
+    padding: 0;
+    border: none;
+    font-size: 15px;
+    color: #d9c7c7;
+    background: transparent;
+    transition: color 0.2s;
+}
+
+.nav > a:hover,
+.cart-button:hover {
+    color: #ffffff;
+}
+
+#cart-count {
+    margin-left: 3px;
+    font-size: 15px;
+    color: #d9c7c7;
+}
+
+.catalog {
+    position: relative;
+    z-index: 2;
+    max-width: 1180px;
+    margin: 5px auto 80px;
+    padding: 0 28px;
+}
+
+.catalog h1 {
+    margin: 0 0 35px;
+    font-family: Georgia, serif;
+    font-size: 44px;
+    font-weight: normal;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #f7eeee;
 }
 
 .bouquet-list {
+    padding: 30px;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 28px;
+    background: rgba(178, 139, 147, 0.32);
+    backdrop-filter: blur(8px);
 }
 
 .bouquet-card {
     display: flex;
     flex-direction: column;
-    padding: 16px;
-    border: 1px solid #cccccc;
+    padding: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(230, 211, 214, 0.28);
+    border-radius: 22px;
+    background: rgba(92, 70, 76, 0.72);
+    backdrop-filter: blur(6px);
+    transition: transform 0.25s, background 0.25s;
+}
+
+.bouquet-card:hover {
+    transform: translateY(-5px);
+    background: rgba(113, 79, 88, 0.82);
 }
 
 .bouquet-card img {
@@ -54,55 +134,139 @@ img {
     aspect-ratio: 4 / 5;
     object-fit: cover;
     object-position: center;
+    border-radius: 15px;
+    transition: transform 0.3s;
+}
+
+.bouquet-card:hover img {
+    transform: scale(1.02);
 }
 
 .bouquet-card h2 {
-    margin: 16px 0 8px;
-    font-size: 20px;
     min-height: 48px;
+    margin: 17px 0 7px;
+    font-family: Georgia, serif;
+    font-size: 21px;
+    font-weight: normal;
+    color: #fff4f2;
 }
 
 .bouquet-card p {
-    margin: 0 0 16px;
-    font-size: 18px;
+    margin: 0 0 17px;
+    font-size: 17px;
+    color: #ead8da;
 }
 
 .add-button {
     width: 100%;
     margin-top: auto;
-    padding: 12px;
+    padding: 12px 15px;
+    border: 1px solid rgba(236, 213, 216, 0.72);
+    border-radius: 30px;
+    color: #4c202a;
+    background: rgba(239, 221, 222, 0.9);
+    transition: 0.2s;
 }
 
-@media (max-width: 900px) {
-    .bouquet-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+.add-button:hover {
+    color: #ffffff;
+    background: #762d3c;
+    border-color: #762d3c;
 }
 
-@media (max-width: 600px) {
-    .bouquet-list {
-        grid-template-columns: 1fr;
-    }
+.cart {
+    position: fixed;
+    top: 0;
+    right: -430px;
+    width: 400px;
+    max-width: 100%;
+    height: 100vh;
+    padding: 28px;
+    z-index: 20;
+    overflow-y: auto;
+    color: #f7eeee;
+    background: #2b1117;
+    border-left: 1px solid #6c3a45;
+    transition: right 0.3s;
 }
+
+.cart.open {
+    right: 0;
+}
+
+.cart-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.cart-top h2 {
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: 30px;
+    font-weight: normal;
+}
+
+.close-button {
+    padding: 7px 12px;
+    border: 1px solid #b98d95;
+    border-radius: 20px;
+    color: #f7eeee;
+    background: transparent;
+}
+
 .cart-item {
-    padding: 12px 0;
-    border-bottom: 1px solid #cccccc;
+    padding: 18px 0;
+    border-bottom: 1px solid #5c343d;
+}
+
+.cart-item p {
+    margin: 5px 0;
 }
 
 .cart-controls {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin: 10px 0;
+    gap: 12px;
+    margin: 12px 0;
 }
 
 .cart-controls button {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #ba9299;
+    border-radius: 50%;
+    color: #f7eeee;
+    background: transparent;
 }
 
 .delete-button {
-    padding: 6px 10px;
+    padding: 7px 12px;
+    border: none;
+    color: #cba5ab;
+    background: transparent;
+}
+
+.delete-button:hover {
+    color: #ffffff;
+}
+
+.cart-bottom {
+    margin-top: 25px;
+}
+
+.cart-bottom p {
+    font-size: 20px;
+}
+
+#order-button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 30px;
+    color: #321219;
+    background: #e8d5d6;
 }
 
 .hidden {
@@ -115,11 +279,12 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-
+    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 30;
+    background: rgba(18, 6, 9, 0.82);
 }
 
 .order-modal.hidden {
@@ -128,33 +293,184 @@ img {
 
 .order-window {
     position: relative;
-    width: 90%;
-    max-width: 450px;
-    padding: 30px;
-    background: white;
+    width: 100%;
+    max-width: 460px;
+    padding: 38px;
+    border: 1px solid #91636c;
+    border-radius: 25px;
+    color: #f8efed;
+    background: #35151d;
+}
+
+.order-window h2 {
+    margin: 0 0 28px;
+    font-family: Georgia, serif;
+    font-size: 30px;
+    font-weight: normal;
 }
 
 .order-close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 14px;
+    right: 17px;
+    border: none;
+    font-size: 25px;
+    color: #f8efed;
+    background: transparent;
 }
 
 #order-form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 9px;
+}
+
+#order-form label {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #d0b7bb;
 }
 
 #order-form input {
-    padding: 10px;
+    padding: 11px 4px;
+    border: none;
+    border-bottom: 1px solid #a87881;
+    outline: none;
+    color: #ffffff;
+    background: transparent;
+}
+
+#order-form input:focus {
+    border-bottom-color: #ffffff;
 }
 
 #order-form button {
-    margin-top: 10px;
-    padding: 12px;
+    margin-top: 24px;
+    padding: 13px;
+    border: none;
+    border-radius: 30px;
+    color: #321219;
+    background: #ead7d8;
 }
 
 .order-message {
-    margin-top: 20px;
+    margin: 25px 0 0;
+    font-family: Georgia, serif;
+    font-size: 25px;
+    text-align: center;
+}
+
+.decor {
+    position: fixed;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+.decor-left {
+    width: 590px;
+    left: -70px;
+    bottom: -35px;
+    opacity: 0.9;
+}
+
+.decor-right {
+    width: 460px;
+    right: -70px;
+    bottom: -110px;
+    opacity: 0.9;
+}
+
+.footer {
+    position: relative;
+    z-index: 2;
+    padding: 30px;
+    text-align: center;
+    color: #a9858d;
+}
+
+@media (max-width: 1200px) {
+    .decor-left {
+        width: 490px;
+        left: -85px;
+        bottom: -25px;
+    }
+
+    .decor-right {
+        width: 390px;
+        right: -70px;
+        bottom: -80px;
+    }
+}
+
+@media (max-width: 900px) {
+    .bouquet-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .catalog h1 {
+        font-size: 40px;
+    }
+
+    .decor-left {
+        width: 360px;
+        left: -95px;
+        bottom: -10px;
+    }
+
+    .decor-right {
+        width: 300px;
+        right: -60px;
+        bottom: -50px;
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        padding: 20px;
+        align-items: flex-start;
+    }
+
+    .logo {
+        font-size: 23px;
+    }
+
+    .nav {
+        gap: 16px;
+    }
+
+    .nav > a,
+    .cart-button,
+    #cart-count {
+        font-size: 14px;
+    }
+
+    .catalog {
+        margin-top: 0;
+        padding: 0 15px;
+    }
+
+    .catalog h1 {
+        margin-bottom: 25px;
+        font-size: 34px;
+    }
+
+    .bouquet-list {
+        grid-template-columns: 1fr;
+        padding: 16px;
+        gap: 20px;
+        border-radius: 20px;
+    }
+
+    .cart {
+        width: 100%;
+    }
+
+    .order-window {
+        padding: 30px 22px;
+    }
+
+    .decor {
+        display: none;
+    }
 }

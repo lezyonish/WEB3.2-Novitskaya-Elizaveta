@@ -1,14 +1,23 @@
 const spisok = document.getElementById("bouquet-list");
+
 const spisokKorziny = document.getElementById("cart-list");
+const blokKorziny = document.getElementById("cart");
+const knopkaKorziny = document.getElementById("cart-button");
+const zakrytKorzinu = document.getElementById("close-cart");
 const schetchik = document.getElementById("cart-count");
 const itogo = document.getElementById("cart-total");
-const sohranennayaKorzina = localStorage.getItem("korzina");
-const korzina = sohranennayaKorzina ? JSON.parse(sohranennayaKorzina) : [];
+
 const knopkaZakaza = document.getElementById("order-button");
 const modalZakaza = document.getElementById("order-modal");
 const zakrytZakaz = document.getElementById("order-close");
 const formaZakaza = document.getElementById("order-form");
 const soobshenieZakaza = document.getElementById("order-message");
+
+const sohranennayaKorzina = localStorage.getItem("korzina");
+const korzina = sohranennayaKorzina
+    ? JSON.parse(sohranennayaKorzina)
+    : [];
+
 
 function pokazatBukety() {
     bukety.forEach(function (buket) {
@@ -23,7 +32,8 @@ function pokazatBukety() {
         nazvanie.textContent = buket.name;
 
         const cena = document.createElement("p");
-        cena.textContent = buket.price.toLocaleString("ru-RU") + " ₽";
+        cena.textContent =
+            buket.price.toLocaleString("ru-RU") + " ₽";
 
         const knopka = document.createElement("button");
         knopka.type = "button";
@@ -31,8 +41,8 @@ function pokazatBukety() {
         knopka.classList.add("add-button");
 
         knopka.addEventListener("click", function () {
-    dobavitVKorzinu(buket.id);
-});
+            dobavitVKorzinu(buket.id);
+        });
 
         kartochka.append(foto);
         kartochka.append(nazvanie);
@@ -43,9 +53,14 @@ function pokazatBukety() {
     });
 }
 
+
 function sohranitKorzinu() {
-    localStorage.setItem("korzina", JSON.stringify(korzina));
+    localStorage.setItem(
+        "korzina",
+        JSON.stringify(korzina)
+    );
 }
+
 
 function dobavitVKorzinu(id) {
     const tovar = korzina.find(function (element) {
@@ -71,6 +86,7 @@ function dobavitVKorzinu(id) {
     pokazatKorzinu();
 }
 
+
 function pokazatKorzinu() {
     spisokKorziny.replaceChildren();
 
@@ -86,7 +102,8 @@ function pokazatKorzinu() {
 
         const cena = document.createElement("p");
         cena.textContent =
-            (tovar.price * tovar.kolvo).toLocaleString("ru-RU") + " ₽";
+            (tovar.price * tovar.kolvo)
+                .toLocaleString("ru-RU") + " ₽";
 
         const upravlenie = document.createElement("div");
         upravlenie.classList.add("cart-controls");
@@ -137,6 +154,8 @@ function pokazatKorzinu() {
     schetchik.textContent = kolvo;
     itogo.textContent = summa.toLocaleString("ru-RU");
 }
+
+
 function izmenitKolvo(id, shag) {
     const tovar = korzina.find(function (element) {
         return element.id === id;
@@ -157,6 +176,7 @@ function izmenitKolvo(id, shag) {
     pokazatKorzinu();
 }
 
+
 function udalitTovar(id) {
     const index = korzina.findIndex(function (element) {
         return element.id === id;
@@ -169,14 +189,36 @@ function udalitTovar(id) {
     sohranitKorzinu();
     pokazatKorzinu();
 }
+
+
+
+knopkaKorziny.addEventListener("click", function () {
+    blokKorziny.classList.add("open");
+});
+
+
+
+zakrytKorzinu.addEventListener("click", function () {
+    blokKorziny.classList.remove("open");
+});
+
+
+
 knopkaZakaza.addEventListener("click", function () {
+    blokKorziny.classList.remove("open");
+
     modalZakaza.classList.remove("hidden");
+    formaZakaza.classList.remove("hidden");
     soobshenieZakaza.classList.add("hidden");
 });
+
+
 
 zakrytZakaz.addEventListener("click", function () {
     modalZakaza.classList.add("hidden");
 });
+
+
 
 formaZakaza.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -184,6 +226,7 @@ formaZakaza.addEventListener("submit", function (event) {
     formaZakaza.classList.add("hidden");
     soobshenieZakaza.classList.remove("hidden");
 });
+
 
 pokazatBukety();
 pokazatKorzinu();
